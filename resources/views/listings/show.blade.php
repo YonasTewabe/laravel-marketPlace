@@ -32,7 +32,10 @@
                             <i>Contact Seller</i>
 
                             <p class="block bg-laravel text-white mt-6 py-2 rounded-xl hover:opacity-80">
-                                <b> Phone no: </b>{{ $listing->contactPhone }}<br>
+                                <b> Phone no: </b>{{ $listing->contactPhone }}
+
+                            </p>                            
+                            <p class="block bg-laravel text-white mt-6 py-2 rounded-xl hover:opacity-80">
                                 <b>Email: </b> {{ $listing->contactEmail }}
 
                             </p>
