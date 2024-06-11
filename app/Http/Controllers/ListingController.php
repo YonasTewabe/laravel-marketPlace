@@ -11,7 +11,7 @@ class ListingController extends Controller
     public function index()
     {   
         return view('listings.index', [
-            'listings' =>  Listing::latest()->filter(request(['tag', 'search']))->get()
+            'listings' =>  Listing::latest()->filter(request(['tag', 'search']))->simplePaginate(6)
         ]);
     }
 
@@ -39,12 +39,54 @@ class ListingController extends Controller
                 'tags' => 'required',
                 'contactEmail' => ['required', 'email'],
                 'contactPhone' => 'required',
-                // 'photo' => 'required'
-                'description' => 'required'
+                'photo' => 'required',
+                'description' => 'nullable'
             ]);
+
+            if($request->hasFile('photo')){
+                $formFields['photo'] = $request->file('photo')->store('images', 'public');
+            }
 
             Listing::create($formFields);
 
-            return redirect('/');
+            return redirect('/')->with('messsage', 'Item Listed Successfully');
     }
+
+
+    //Show Edit form
+public function edit(Listing $listing)
+{
+    return view('listings.edit', ['listing' => $listing]);
+}
+
+
+//Update Listing data
+public function update(Request $request, Listing $listing){
+    $formFields = $request->validate(
+        [
+            'title' => 'required',
+            'price' => 'required',
+            'location' => 'required',
+            'tags' => 'required',
+            'contactEmail' => ['required', 'email'],
+            'contactPhone' => 'required',
+            'description' => 'nullable'
+        ]);
+
+        if($request->hasFile('photo')){
+            $formFields['photo'] = $request->file('photo')->store('images', 'public');
+        }
+
+        $formFields['description'] = $formFields['description'] ?? '';
+
+        $listing->update($formFields);
+
+        return redirect("/listings/{$listing->id}")->with('message', 'Item Updated Successfully');
+}
+//Delete listing
+public function destroy(Listing $listing){
+    $listing->delete();
+    return redirect('/')->with('message', 'Listing deleted succesffuly');
+}
+
 }
