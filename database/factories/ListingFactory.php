@@ -18,12 +18,13 @@ class ListingFactory extends Factory
     {
         return [
             'title' => $this->faker->sentence(),
-            'status' => 'new, old, slightly used',
-            'price' => $this->faker->company(),
+            'tags' => 'new, old, slightly used',
+            'price' => $this->faker->numberBetween(100, 10000),
             'location' => $this->faker->city(),
             'description' => $this->faker->paragraph(2),
-            'contactPhone' => $this->faker->sentence(),
+            'contactPhone' => $this->faker->phoneNumber(),
             'contactEmail' => $this->faker->companyEmail(),
+            'photo' => $this->faker->imageUrl()
         ];
     }
 }
