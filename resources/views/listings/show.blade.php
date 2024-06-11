@@ -43,7 +43,7 @@
                 </div>
             </div>
         </div>
-        <div class="mt-4 p-2 flex-x-6">
+        <div class="mt-4 p-2 flex space-x-6 inline">
             <a href="/listings/{{$listing->id}}/edit"><i class="fa-solid fa-pencil"></i>Edit</a>
             <form method="POST" action="/listings/{{$listing->id}}">
                 @csrf
