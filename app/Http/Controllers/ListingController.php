@@ -47,6 +47,8 @@ class ListingController extends Controller
                 $formFields['photo'] = $request->file('photo')->store('images', 'public');
             }
 
+            $formFields['user_id'] = auth()->id();
+
             Listing::create($formFields);
 
             return redirect('/')->with('messsage', 'Item Listed Successfully');
