@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Listing extends Model
-{
+{ 
     use HasFactory;
 
     // protected $fillable = ['title', 'tags', 'price', 'location', 'contactEmail', 'contactPhone', 'description'];
@@ -23,5 +23,10 @@ class Listing extends Model
             ->orWhere('tags', 'like', '%' . request('search') . '%')
             ->orWhere('location', 'like', '%' . request('search') . '%');
         }
+    }
+
+    //Relationship with user
+    public function user() {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

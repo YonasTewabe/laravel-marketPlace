@@ -55,7 +55,7 @@ public function authenticate(Request $request){
 
         if(auth()->attempt($formFields)){
             $request->session()->regenerate();
-            return redirect('/')->with('message', 'Succesfully logged in');
+            return redirect('/');
         }
 
         return back()->withErrors(['email' => 'Invalid Credentials'])->onlyInput('email');
