@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Auth\User;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -33,7 +34,8 @@ class UserController extends Controller
 
 //logout
 public function logout(Request $request){
-    auth()->logout();
+    // auth()->logout();
+    Auth::logout();
 
     $request->session()->invalidate();
     $request->session()->regenerateToken();
