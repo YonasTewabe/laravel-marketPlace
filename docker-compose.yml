@@ -1,0 +1,27 @@
+services:
+
+  #APP SERVER
+  gereb-backend:
+    container_name: market-place
+    build: .
+    volumes:
+      - ./:/var/www/html
+    ports:
+      - 5000:80
+      # - 443:443
+  #DATABASE SERVER
+  mysql_db:
+    image: mysql:latest
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: marketplace
+    ports:
+    - 3306:3306
+  #PHPMYADMIN SERVER
+  phpmyadmin:
+    image: phpmyadmin
+    ports:
+      - 9002:80
+    environment:
+      - PMA_ARBITRARY=1
