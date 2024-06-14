@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Cookie;
+
 
 class UserController extends Controller
 {
@@ -33,15 +36,19 @@ class UserController extends Controller
 }
 
 //logout
-public function logout(Request $request){
-    // auth()->logout();
+public function logout(Request $request)
+{
     Auth::logout();
 
     $request->session()->invalidate();
     $request->session()->regenerateToken();
 
-    return redirect('/')->with('message', 'You have logged out');
+    $cookie = Cookie::forget('laravel_sessions');
+    return redirect('/')->withCookie($cookie);
+
+    // return redirect('/')->with('message', 'You have logged out');
 }
+
 
 //show login form
 public function login(){
